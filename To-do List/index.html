@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <div class="container">
+        <div class="header">
+            <h2>Lista de Tarefas</h2>
+            <div id="switch" onclick="toggleMode()" aria-label="Alternar tema">
+                <button></button>
+                <span></span>
+            </div>
+        </div>
+        <form id="form-tarefa">
+            <input type="text" id="nova-tarefa" placeholder="Digite uma tarefa...">
+            <button type="submit">Adicionar</button>
+        </form>
+        <ul id="lista-tarefas"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

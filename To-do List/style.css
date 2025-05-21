@@ -1,0 +1,219 @@
+:root {
+    --bg-color: #e3e6f0;
+    --text-color: #333;
+    --box-color: #f9f9f9;
+    --item-bg: #eaeaea;
+    --button-color: #4a90e2;
+    --button-hover: #357ab8;
+    --delete-color: #e62d2d;
+    --delete-hover: #b30000;
+    --switch-bg-url: url('./assets/sun.svg');
+    --outline-hover: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f1f1f1;
+    --box-color: #2a2a2a;
+    --item-bg: #3a3a3a;
+    --button-color: #007bff;
+    --button-hover: #0056b3;
+    --delete-color: #e62d2d;
+    --delete-hover: #b30000;
+    --switch-bg-url: url('./assets/moon-stars.svg');
+    --outline-hover: rgba(255, 255, 255, 0.2)
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.header{
+    display: flex;
+    
+}
+
+#switch { 
+    position: relative;
+    width: 64px;
+    margin: 0 20px;
+}
+
+#switch button {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background: white var(--switch-bg-url) no-repeat center;
+    background-size: 20px;
+    border: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    z-index: 1;
+    transform: translateY(-50%);
+    animation: slide-back 0.4s;
+}
+
+
+#switch span {
+    cursor: pointer;
+    display: block;
+    width: 64px;
+    height: 24px;
+    background: #222;
+    border: 1px solid #333;
+    --webkit-backdrop-filter: blur(4px);
+    border-radius: 9999px;
+}
+
+#switch button:hover {
+  outline: 6px solid var(--outline-hover);
+}
+
+.dark #switch button {
+    animation: slide-in 0.4s forwards;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    align-items: center;
+    background-color: var(--box-color);
+    color: var(--text-color); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.container h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.container form input {
+    padding: 0 8px;
+    outline: none;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    background-color: var(--item-bg);
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.container form button {
+    padding: 10px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    width: 80px;
+    background-color: var(--button-color);
+    color: white;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.container form button:hover {
+    background-color: var(--button-hover);
+}
+
+ul{
+    margin-top: 20px;
+    list-style: none;
+}
+
+li{
+    width: 400px;
+    background-color: var(--item-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+li button{ 
+    padding: 8px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--delete-color);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+li button:hover{
+    background-color: var(--delete-hover);
+}
+
+li input{
+    
+    height: 20px;
+    width: 20px;
+    justify-content: end;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .container {
+    padding: 10px;
+  }
+
+  li {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .container form input {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .container form button {
+    width: 100%;
+  }
+}
