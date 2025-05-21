@@ -1,0 +1,78 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+}
+
+input, select, button {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+}
+
+.container{
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 10px #000;
+    width: 500px;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.container h2{
+    color: white;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.container input{
+    width: 80%;
+    height: 40px;
+    outline: 0;
+    font-size: 15px;
+}
+
+
+.moedas{
+    width:100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moedas span{
+    color: white;
+    margin: 7px;
+}
+
+.moedas select{
+
+    font-size: 15px;
+}
+
+.container button{
+    background-color: #00bcd4;
+    color: white;
+    cursor: pointer;
+}
+
+#result {
+    display: none;
+    background-color: white;
+    margin-top: 20px;
+    font-size: 1.2em;
+    height: 40px;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
