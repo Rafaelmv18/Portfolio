@@ -2,6 +2,8 @@ const form = document.getElementById('form-tarefa');
 const input = document.getElementById('nova-tarefa');
 const lista = document.getElementById('lista-tarefas');
 
+const html = document.documentElement;
+
 let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
 function renderTarefas(){
@@ -45,10 +47,29 @@ form.addEventListener('submit', function (e) {
     input.value = '';
 });
 
-renderTarefas();
+
+const TEMA_KEY = "themeMode";
+
+function aplicarTemaSalvo() {
+    const temaSalvo = localStorage.getItem(TEMA_KEY);
+    if (temaSalvo === "dark") {
+        html.classList.add("dark");
+    } else {
+        html.classList.remove("dark"); 
+    }
+}
 
 function toggleMode() {
-  const html = document.documentElement
-
-  html.classList.toggle("dark")
+    html.classList.toggle("dark");
+    
+    if (html.classList.contains("dark")) {
+        localStorage.setItem(TEMA_KEY, "dark");
+    } else {
+        localStorage.setItem(TEMA_KEY, "light"); 
+    }
 }
+
+renderTarefas();
+aplicarTemaSalvo();
+
+
