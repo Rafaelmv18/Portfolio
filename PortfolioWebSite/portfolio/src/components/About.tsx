@@ -8,7 +8,7 @@ export default function About() {
         <strong>Instituição:</strong> IFBA(Instituto Federal da Bahia)
       </p>
       <p>
-        <strong>Período:</strong> Março 2023 - Cursando
+        <strong>Período:</strong> Março 2023 - Março 2027
       </p>
     </section>
   );
