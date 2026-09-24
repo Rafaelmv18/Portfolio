@@ -39,7 +39,7 @@ export default function Experience() {
             <h4 className="experience-company">
               Grupo AME — Sistema Ametech-VR
             </h4>
-            <span className="experience-period">Out, 2025 — Presente</span>
+            <span className="experience-period">Abr, 2025 — Fev. 2026</span>
           </div>
 
           <div className="experience-role">Engenheiro de Software Backend</div>
