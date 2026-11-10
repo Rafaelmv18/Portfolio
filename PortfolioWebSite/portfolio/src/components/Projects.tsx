@@ -90,17 +90,6 @@ export default function Projects() {
 
           <div className="project-links">
             <a
-              href="https://github.com/Rafaelmv18/IncluiAqui"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link-action"
-            >
-              <FontAwesomeIcon icon={faGithub} />
-              <span>Ver no GitHub</span>
-              <ArrowUpRight size={14} />
-            </a>
-
-            <a
               href="https://portal.ifba.edu.br/feira-de-santana/noticias/2025/estudantes-do-ifba-feira-de-santana-desenvolvem-aplicativo-voltado-a-acessibilidade-incluiaqui"
               target="_blank"
               rel="noopener noreferrer"
