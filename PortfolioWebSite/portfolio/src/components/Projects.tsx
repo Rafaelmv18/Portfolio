@@ -79,7 +79,7 @@ export default function Projects() {
 
           <div className="video-container">
             <video
-              src="/incluiaqui.mp4"
+              src="/IncluiAqui.mp4"
               autoPlay
               muted
               loop
