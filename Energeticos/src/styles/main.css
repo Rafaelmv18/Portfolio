@@ -1,0 +1,860 @@
+/* =========================================================
+   VELKOR, tokens
+   O preto é #000 puro de propósito: é o fundo exato das
+   imagens geradas, então canvas e página se fundem sem borda.
+   ========================================================= */
+:root {
+  --void: #000000;
+  --ice: #e9f0ef;      /* branco frio do gelo, texto principal */
+  --steel: #8b9298;    /* alumínio escovado, texto secundário */
+  --graphite: #17191b; /* superfícies discretas */
+  --line: rgba(233, 240, 239, 0.14);
+
+  /* Cor de destaque: muda com o sabor escolhido */
+  --accent: #c6ff00;
+  --accent-ink: #0a0d00;
+
+  --font-display: 'Anybody', 'Arial Narrow', sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+
+  /* Escala tipográfica (razão 1.333, quarta justa) */
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.333rem;
+  --step-2: 1.777rem;
+  --step-3: clamp(2rem, 4vw, 3.157rem);
+  --step-4: clamp(2.6rem, 6.5vw, 5.6rem);
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ice);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.is-loading { overflow: hidden; }
+
+img { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; cursor: pointer; }
+h1, h2, h3, p { margin: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* =========================================================
+   Loader
+   ========================================================= */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  background: var(--void);
+}
+
+.loader__can {
+  position: relative;
+  width: 44px;
+  height: 118px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px 12px 10px 10px;
+  overflow: hidden;
+}
+
+.loader__fill {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: bottom;
+  transform: scaleY(0);
+  box-shadow: 0 0 40px var(--accent);
+}
+
+.loader__text { color: var(--steel); font-size: var(--step--1); }
+.loader__pct { color: var(--ice); font-variant-numeric: tabular-nums; }
+
+/* =========================================================
+   Navegação
+   ========================================================= */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px var(--gutter) 36px;
+  /* Garante leitura do menu mesmo sobre o respingo verde */
+  background: linear-gradient(rgba(0, 0, 0, 0.75), transparent);
+}
+
+.nav__logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 130;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: var(--ice);
+  text-decoration: none;
+}
+
+.nav__links { display: flex; gap: 32px; }
+
+.nav__links a {
+  color: var(--steel);
+  text-decoration: none;
+  font-size: var(--step--1);
+  transition: color 0.3s;
+}
+.nav__links a:hover { color: var(--ice); }
+
+.nav__cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ice);
+  text-decoration: none;
+  font-size: var(--step--1);
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.nav__count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.6s var(--ease);
+}
+
+@media (max-width: 720px) {
+  .nav__links { display: none; }
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero { position: relative; }
+
+.hero__stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 47%; /* centro da lata: é para lá que ela encolhe na saída */
+}
+
+/* Reserva: aparece sem JavaScript ou se a animação falhar ao iniciar */
+.hero__fallback {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: min(100vw, 70vh);
+  translate: -50% -50%;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%);
+}
+
+.is-static .hero__fallback { display: block; }
+.is-static .hero__canvas,
+.is-static .hero__hint { display: none; }
+
+/* Conteúdo que normalmente é revelado pela animação: visível direto
+   quando ela não roda (versão estática ou movimento reduzido) */
+.is-static .hero__facts li,
+.is-reduced .hero__facts li { visibility: visible; }
+.is-static .manifesto__text .word,
+.is-reduced .manifesto__text .word { opacity: 1; }
+/* Sem o hero fixo não existe o "fim escuro" para o manifesto sobrepor */
+.is-static .manifesto,
+.is-reduced .manifesto { margin-top: 0; }
+
+.hero__flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, #f4ffd0 0%, var(--accent) 30%, transparent 75%);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* A palavra começa estreita e "explode" em largura junto com a lata */
+.hero__word {
+  --wdth: 50;
+  position: absolute;
+  left: 50%;
+  bottom: -3vh;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'wdth' var(--wdth);
+  font-size: clamp(4rem, 14vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(233, 240, 239, 0.75);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__lede {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 21ch;
+  font-size: var(--step-1);
+  line-height: 1.35;
+  color: var(--ice);
+}
+
+.hero__hint {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--steel);
+  font-size: var(--step--1);
+}
+
+.hero__hint-line {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(var(--accent), transparent);
+  animation: hint 2.2s var(--ease) infinite;
+  transform-origin: top;
+}
+
+@keyframes hint {
+  0% { transform: scaleY(0); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+.hero__facts {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 17rem;
+  color: var(--steel);
+}
+
+.hero__facts li {
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  visibility: hidden; /* o GSAP revela */
+}
+
+.hero__facts strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 120;
+  font-size: var(--step-2);
+  line-height: 1.1;
+  color: var(--ice);
+}
+
+.hero__word,
+.hero__lede,
+.hero__hint,
+.hero__facts { z-index: 2; }
+
+@media (max-width: 860px) {
+  /* No celular o texto fica sobre a lata: degradê escuro garante a leitura */
+  .hero__stage::after {
+    content: '';
+    position: absolute;
+    inset: 45% 0 0 0;
+    z-index: 1;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85) 45%);
+    pointer-events: none;
+  }
+  .hero__lede {
+    top: auto;
+    bottom: 26vh;
+    left: var(--gutter);
+    right: var(--gutter);
+    transform: none;
+    max-width: none;
+    text-align: center;
+    font-size: var(--step-0);
+  }
+  .hero__hint { top: auto; bottom: 20vh; left: 50%; right: auto; transform: translateX(-50%); }
+  .hero__facts {
+    top: auto;
+    bottom: 22vh;
+    left: var(--gutter);
+    right: var(--gutter);
+    transform: none;
+    max-width: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+  .hero__facts li { padding-left: 10px; }
+  .hero__facts strong { font-size: 1.1rem; white-space: nowrap; }
+}
+
+/* =========================================================
+   Manifesto
+   ========================================================= */
+.manifesto {
+  /* Sobe sobre o fim do hero (que já está escuro) para não sobrar uma tela vazia */
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin: -55vh auto 0;
+  margin: -55svh auto 0;
+  padding: clamp(120px, 22vh, 240px) var(--gutter);
+}
+
+.manifesto__text {
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: 'wdth' 88;
+  font-size: var(--step-4);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+/* 0.4 é o mínimo que ainda passa no contraste 3:1 para texto grande */
+.manifesto__text .word { opacity: 0.4; }
+
+/* =========================================================
+   Fórmula
+   ========================================================= */
+.formula__pin {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: clamp(80px, 12vh, 120px) var(--gutter) 40px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.formula__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 100;
+  font-size: var(--step-3);
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* A largura é limitada pela altura da tela para manter a proporção 10:7 */
+.formula__stage {
+  position: relative;
+  align-self: center;
+  width: min(100%, calc(70svh * 10 / 7));
+  aspect-ratio: 1000 / 700;
+  margin: 0 auto;
+}
+
+.formula__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.formula__lines path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.6s var(--ease);
+}
+
+.formula__can {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 125%;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  /* Some com as bordas da foto para a lata "flutuar" no preto */
+  -webkit-mask-image: radial-gradient(ellipse 28% 52% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 28% 52% at 50% 50%, #000 60%, transparent 100%);
+}
+
+.formula__items { margin: 0; padding: 0; list-style: none; }
+
+.formula__item {
+  position: absolute;
+  display: grid;
+  gap: 4px;
+  width: min(15rem, 30%);
+}
+
+.formula__item--tl { left: 0; top: 0; }
+.formula__item--bl { left: 0; bottom: 0; }
+.formula__item--tr { right: 0; top: 0; text-align: right; }
+.formula__item--br { right: 0; bottom: 0; text-align: right; }
+
+/* Itens ancorados no fim das linhas (y=230 e y=470 do viewBox) */
+.formula__item--tl,
+.formula__item--tr { top: calc(230 / 700 * 100%); transform: translateY(calc(-100% - 14px)); }
+.formula__item--bl,
+.formula__item--br { top: calc(470 / 700 * 100%); bottom: auto; transform: translateY(14px); }
+
+.formula__amount {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  white-space: nowrap;
+  line-height: 1;
+  color: var(--accent);
+  transition: color 0.6s var(--ease);
+}
+
+.formula__name { font-weight: 600; color: var(--ice); }
+.formula__desc { color: var(--steel); font-size: var(--step--1); line-height: 1.45; }
+
+@media (max-width: 860px) {
+  .formula__stage { width: 100%; aspect-ratio: auto; display: grid; gap: 32px; overflow: clip; }
+  .formula__lines { display: none; }
+  .formula__can {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 160%;
+    max-width: none;
+    margin-left: -30%;
+  }
+  .formula__items { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  .formula__item,
+  .formula__item--tl,
+  .formula__item--tr,
+  .formula__item--bl,
+  .formula__item--br {
+    position: static;
+    width: auto;
+    transform: none;
+    text-align: left;
+  }
+  .formula__amount { font-size: var(--step-2); }
+}
+
+/* =========================================================
+   Faixa
+   ========================================================= */
+.marquee {
+  overflow: hidden;
+  padding: clamp(40px, 8vh, 80px) 0;
+  border-block: 1px solid var(--line);
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  width: max-content;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'wdth' 140;
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 1;
+  text-transform: uppercase;
+  will-change: transform;
+}
+
+.marquee__track span:nth-of-type(even) {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ice);
+}
+
+/* Separador: uma gota no lugar do ponto */
+.marquee__track i {
+  flex: none;
+  width: 0.32em;
+  height: 0.42em;
+  background: var(--accent);
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  transform: rotate(180deg);
+  transition: background 0.6s var(--ease);
+}
+
+/* =========================================================
+   Sabores
+   ========================================================= */
+.flavors {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(100px, 16vh, 180px) var(--gutter);
+}
+
+.flavors__visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: clip; /* a imagem é maior que a caixa; a máscara já esconde as bordas */
+  perspective: 900px;
+}
+
+.flavors__glow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 65%);
+  opacity: 0.28;
+  filter: blur(40px);
+  transition: background 0.6s var(--ease);
+}
+
+.flavors__can {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180%;
+  max-width: none;
+  translate: -50% -50%;
+  /* A imagem é maior que a coluna e invadia as abas, roubando o clique */
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 22% 48% at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 22% 48% at 50% 50%, #000 62%, transparent 100%);
+  transition: filter 0.6s var(--ease);
+  will-change: transform;
+}
+
+.flavors__copy { position: relative; z-index: 1; }
+
+/* Imagens recoloridas quando o sabor muda */
+[data-tint] { transition: filter 0.6s var(--ease); }
+
+.flavors__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 100;
+  font-size: var(--step-3);
+  line-height: 1.05;
+  max-width: 14ch;
+}
+
+.flavors__tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin: 40px 0 36px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.flavors__tabs button {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--steel);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+.flavors__tabs button:hover { color: var(--ice); }
+
+.flavors__tabs button[aria-selected='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.flavors__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'wdth' 150;
+  font-size: var(--step-4);
+  line-height: 0.95;
+  color: var(--accent);
+  transition: color 0.6s var(--ease);
+}
+
+.flavors__desc { margin-top: 16px; max-width: 34ch; color: var(--steel); font-size: var(--step-1); line-height: 1.4; }
+
+@media (max-width: 860px) {
+  .flavors { grid-template-columns: 1fr; }
+  .flavors__visual { max-width: 420px; width: 100%; margin: 0 auto; }
+}
+
+/* =========================================================
+   Compra
+   ========================================================= */
+.buy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(80px, 12vh, 140px) var(--gutter);
+}
+
+.buy__visual img {
+  width: 100%;
+  border-radius: 20px;
+  transition: filter 0.6s var(--ease);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 55%, transparent 100%);
+}
+
+.buy__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 100;
+  font-size: var(--step-3);
+  line-height: 1.05;
+}
+
+.buy__flavor { margin-top: 8px; color: var(--steel); }
+.buy__flavor strong { color: var(--ice); font-weight: 600; }
+
+.buy__packs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 32px 0 24px;
+  padding: 0;
+  border: 0;
+}
+
+.buy__packs legend { margin-bottom: 12px; padding: 0; color: var(--steel); font-size: var(--step--1); }
+
+.pack {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.pack:hover { border-color: rgba(233, 240, 239, 0.35); }
+
+.pack input { position: absolute; opacity: 0; pointer-events: none; }
+
+.pack:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.pack:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.pack__size { font-weight: 600; }
+.pack__price { font-family: var(--font-display); font-weight: 800; font-variation-settings: 'wdth' 110; font-size: var(--step-1); }
+.pack__unit { color: var(--steel); font-size: 0.8rem; }
+
+.buy__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.qty__btn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  font-size: 1.2rem;
+  border-radius: 999px;
+}
+.qty__btn:hover { background: var(--graphite); }
+.qty__btn:disabled { opacity: 0.3; cursor: not-allowed; background: none; }
+
+.qty__value { min-width: 2ch; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+.buy__total { color: var(--steel); }
+.buy__total strong {
+  margin-left: 8px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 110;
+  font-size: var(--step-2);
+  color: var(--ice);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Botão magnético: o JS desloca o botão e o texto em direção ao cursor */
+.buy__cta {
+  display: block;
+  width: 100%;
+  padding: 22px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: var(--step-1);
+  transition: background 0.6s var(--ease), box-shadow 0.4s var(--ease);
+  will-change: transform;
+}
+
+.buy__cta span { display: inline-block; will-change: transform; }
+
+.buy__cta:hover { box-shadow: 0 0 60px -10px var(--accent); }
+
+.buy__note { margin-top: 14px; color: var(--steel); font-size: var(--step--1); text-align: center; }
+
+@media (max-width: 860px) {
+  .buy { grid-template-columns: 1fr; }
+  .buy__packs { grid-template-columns: 1fr; }
+  .pack { grid-template-columns: 1fr auto; align-items: baseline; }
+  .pack__unit { grid-column: 1 / -1; }
+}
+
+/* =========================================================
+   Estado pressionado: usa a propriedade `scale` (separada de
+   `transform`) para não brigar com o efeito magnético do GSAP
+   ========================================================= */
+.buy__cta,
+.qty__btn,
+.pack,
+.flavors__tabs button,
+.nav__cart {
+  transition-property: background, color, border-color, box-shadow, scale;
+}
+
+.buy__cta:active { scale: 0.97; }
+.qty__btn:active:not(:disabled),
+.flavors__tabs button:active,
+.nav__cart:active { scale: 0.94; }
+.pack:active { scale: 0.98; }
+
+/* =========================================================
+   Rodapé
+   ========================================================= */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Puramente decorativa: o texto vem do CSS para não ser tratado como conteúdo */
+.footer__word::before { content: 'VELKOR'; }
+
+.footer__word {
+  --wdth: 150;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'wdth' var(--wdth);
+  font-size: clamp(3rem, 14.5vw, 16rem);
+  line-height: 0.8;
+  text-align: center;
+  color: var(--graphite);
+  user-select: none;
+}
+
+.footer__note {
+  max-width: 60ch;
+  margin: 40px auto 0;
+  color: var(--steel);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+/* =========================================================
+   Toast
+   ========================================================= */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 60;
+  max-width: calc(100vw - 32px);
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(23, 25, 27, 0.92);
+  backdrop-filter: blur(12px);
+  font-size: var(--step--1);
+  opacity: 0;
+  transform: translate(-50%, 20px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* =========================================================
+   Movimento reduzido: tudo visível, sem animação contínua
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .hero__hint-line { animation: none; }
+  .hero__facts li { visibility: visible; }
+  .manifesto__text .word { opacity: 1; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

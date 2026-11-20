@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VELKOR Energy</title>
+    <meta name="description" content="VELKOR, energia limpa que segura o foco e não derruba depois. Landing page fictícia de portfólio." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fontes sem bloquear a primeira pintura: carrega como "print" e troca para "all" ao terminar -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      />
+    </noscript>
+    <link rel="preload" as="image" href="/img/can-start.webp" />
+    <!-- O hero precisa começar do quadro 0: não restaura a posição do scroll ao recarregar -->
+    <script>history.scrollRestoration = 'manual';</script>
+
+    <!-- Compartilhamento (LinkedIn, WhatsApp). Depois do deploy, troque pelo endereço absoluto do site. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="VELKOR Energy" />
+    <meta property="og:description" content="Landing page animada: a lata explode conforme você rola a página." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Sem JavaScript: some a tela de carregamento e aparece a versão estática -->
+    <noscript>
+      <style>
+        .loader { display: none; }
+        .hero__fallback { display: block; }
+        .hero__facts li { visibility: visible; }
+        .manifesto__text .word { opacity: 1; }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <!-- Tela de carregamento: a lata enche conforme os quadros chegam -->
+    <div class="loader" aria-live="polite">
+      <div class="loader__can" aria-hidden="true"><span class="loader__fill"></span></div>
+      <p class="loader__text">Gelando as latas <span class="loader__pct">0%</span></p>
+    </div>
+
+    <header class="nav">
+      <a href="#top" class="nav__logo" aria-label="VELKOR, voltar ao início">VELKOR</a>
+      <nav class="nav__links" aria-label="Seções">
+        <a href="#formula">Fórmula</a>
+        <a href="#sabores">Sabores</a>
+        <a href="#comprar">Comprar</a>
+      </nav>
+      <a href="#comprar" class="nav__cart">Carrinho <span class="nav__count" aria-label="itens no carrinho">0</span></a>
+    </header>
+
+    <main>
+      <!-- HERO: canvas guiado pelo scroll -->
+      <section class="hero" id="top" aria-label="VELKOR Energy">
+        <div class="hero__stage">
+          <canvas class="hero__canvas" aria-hidden="true" data-tint></canvas>
+          <img
+            class="hero__fallback"
+            loading="lazy"
+            src="/img/can-splash.webp"
+            srcset="/img/can-splash-640.webp 640w, /img/can-splash.webp 1200w"
+            sizes="(max-width: 860px) 100vw, 70vh"
+            alt="Lata de VELKOR explodindo em respingos verdes e cubos de gelo"
+            width="1200"
+            height="1043"
+          />
+          <div class="hero__flash" aria-hidden="true"></div>
+          <h1 class="hero__word" aria-label="VELKOR">VELKOR</h1>
+          <p class="hero__lede">Energia que segura o foco por horas e não derruba você depois.</p>
+          <p class="hero__hint" aria-hidden="true"><span class="hero__hint-line"></span>Role para abrir</p>
+          <ul class="hero__facts" aria-label="Destaques">
+            <li><strong>160 mg</strong> de cafeína do chá verde</li>
+            <li><strong>0 g</strong> de açúcar</li>
+            <li><strong>Nenhuma</strong> queda às quatro da tarde</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- MANIFESTO: palavras acendem com o scroll -->
+      <section class="manifesto" aria-label="Manifesto">
+        <p class="manifesto__text">
+          Feito para quem tem coisa pra terminar. Sem açúcar, sem pico, sem aquele apagão no meio da tarde.
+          Só um foco limpo que chega devagar e fica até o trabalho acabar.
+        </p>
+      </section>
+
+      <!-- FÓRMULA: lata fixa com ingredientes ao redor -->
+      <section class="formula" id="formula" aria-labelledby="formula-title">
+        <div class="formula__pin">
+          <h2 class="formula__title" id="formula-title">O que tem dentro de uma lata</h2>
+          <div class="formula__stage">
+            <svg class="formula__lines" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M440 300 L360 230 L0 230" />
+              <path d="M440 420 L360 470 L0 470" />
+              <path d="M560 300 L640 230 L1000 230" />
+              <path d="M560 420 L640 470 L1000 470" />
+            </svg>
+            <img class="formula__can" data-tint src="/img/can-start.webp" srcset="/img/can-start-768.webp 768w, /img/can-start.webp 1408w" sizes="(max-width: 860px) 160vw, 90vw" alt="Lata de VELKOR Energy, preta com faixa verde-limão" width="1408" height="768" loading="lazy" />
+            <ul class="formula__items">
+              <li class="formula__item formula__item--tl">
+                <span class="formula__amount">160 mg</span>
+                <span class="formula__name">Cafeína natural</span>
+                <span class="formula__desc">Extraída do chá verde. Entra aos poucos, sem o tranco do café.</span>
+              </li>
+              <li class="formula__item formula__item--bl">
+                <span class="formula__amount">1000 mg</span>
+                <span class="formula__name">Taurina</span>
+                <span class="formula__desc">Ajuda a manter o ritmo em treinos e madrugadas longas.</span>
+              </li>
+              <li class="formula__item formula__item--tr">
+                <span class="formula__amount">B6 + B12</span>
+                <span class="formula__name">Vitaminas do complexo B</span>
+                <span class="formula__desc">Participam da produção de energia do próprio corpo.</span>
+              </li>
+              <li class="formula__item formula__item--br">
+                <span class="formula__amount">0 g</span>
+                <span class="formula__name">Açúcar</span>
+                <span class="formula__desc">Adoçado com estévia. São 12 kcal por lata de 330 ml.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAIXA: velocidade e inclinação seguem o scroll -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Sem queda</span><i></i><span>Sem açúcar</span><i></i><span>Foco longo</span><i></i>
+          <span>Sem queda</span><i></i><span>Sem açúcar</span><i></i><span>Foco longo</span><i></i>
+        </div>
+      </div>
+
+      <!-- SABORES: o sabor escolhido muda a cor de destaque da página inteira -->
+      <section class="flavors" id="sabores" aria-labelledby="flavors-title">
+        <div class="flavors__visual">
+          <div class="flavors__glow" aria-hidden="true"></div>
+          <img class="flavors__can" data-tint src="/img/can-start.webp" srcset="/img/can-start-768.webp 768w, /img/can-start.webp 1408w" sizes="(max-width: 860px) 180vw, 90vw" alt="" width="1408" height="768" loading="lazy" />
+        </div>
+        <div class="flavors__copy">
+          <h2 class="flavors__title" id="flavors-title">Três sabores, a mesma fórmula</h2>
+          <div class="flavors__tabs" role="tablist" aria-label="Sabores">
+            <button role="tab" aria-selected="true" data-flavor="lima">Lima</button>
+            <button role="tab" aria-selected="false" data-flavor="glacier">Glacier</button>
+            <button role="tab" aria-selected="false" data-flavor="ember">Ember</button>
+          </div>
+          <h3 class="flavors__name">Lima</h3>
+          <p class="flavors__desc">Limão-taiti com um fundo cítrico seco. O original, gelado e direto.</p>
+        </div>
+      </section>
+
+      <!-- COMPRA -->
+      <section class="buy" id="comprar" aria-labelledby="buy-title">
+        <div class="buy__visual">
+          <img data-tint src="/img/can-splash.webp" srcset="/img/can-splash-640.webp 640w, /img/can-splash.webp 1200w" sizes="(max-width: 860px) 100vw, 50vw" alt="Lata de VELKOR cercada por respingos de bebida e cubos de gelo" width="1200" height="1043" loading="lazy" />
+        </div>
+        <form class="buy__form" novalidate>
+          <h2 class="buy__title" id="buy-title">Monte seu pack</h2>
+          <p class="buy__flavor">Sabor: <strong class="buy__flavor-name">Lima</strong></p>
+
+          <fieldset class="buy__packs">
+            <legend>Tamanho do pack</legend>
+            <label class="pack">
+              <input type="radio" name="pack" value="6" data-price="59.9" />
+              <span class="pack__size">6 latas</span>
+              <span class="pack__price">R$ 59,90</span>
+              <span class="pack__unit">R$ 9,98 a lata</span>
+            </label>
+            <label class="pack">
+              <input type="radio" name="pack" value="12" data-price="109.9" checked />
+              <span class="pack__size">12 latas</span>
+              <span class="pack__price">R$ 109,90</span>
+              <span class="pack__unit">R$ 9,16 a lata</span>
+            </label>
+            <label class="pack">
+              <input type="radio" name="pack" value="24" data-price="199.9" />
+              <span class="pack__size">24 latas</span>
+              <span class="pack__price">R$ 199,90</span>
+              <span class="pack__unit">R$ 8,33 a lata</span>
+            </label>
+          </fieldset>
+
+          <div class="buy__row">
+            <div class="qty" role="group" aria-label="Quantidade de packs">
+              <button type="button" class="qty__btn" data-step="-1" aria-label="Diminuir quantidade">−</button>
+              <output class="qty__value" aria-live="polite">1</output>
+              <button type="button" class="qty__btn" data-step="1" aria-label="Aumentar quantidade">+</button>
+            </div>
+            <p class="buy__total">Total <strong class="buy__total-value">R$ 109,90</strong></p>
+          </div>
+
+          <button type="submit" class="buy__cta"><span>Adicionar ao carrinho</span></button>
+          <p class="buy__note">Frete grátis acima de R$ 150. Entrega gelada em capitais.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__word" aria-hidden="true"></div>
+      <p class="footer__note">
+        Projeto fictício criado para portfólio. VELKOR não é uma marca real e nada nesta página está à venda.
+        Imagens e vídeo gerados com IA.
+      </p>
+    </footer>
+
+    <div class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

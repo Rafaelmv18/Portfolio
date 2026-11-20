@@ -1,0 +1,22 @@
+{
+  "name": "velkor-energy",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing page animada para uma bebida energética fictícia (VELKOR). Projeto de portfólio.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "frames": "node scripts/extract-frames.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27"
+  },
+  "devDependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}
