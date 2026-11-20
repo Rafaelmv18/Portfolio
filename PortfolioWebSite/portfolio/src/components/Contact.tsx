@@ -16,44 +16,40 @@ export default function Contact() {
       <span className="section-label">Disponibilidade</span>
       <h3 className="section-title">Contato</h3>
 
-      <div className="contact-section-content">
-        <p style={{ color: "#94a3b8", fontSize: "0.95rem" }}>
-          Estou aberto a oportunidades profissionais, estágios e novos projetos.
-          Sinta-se à vontade para entrar em contato diretamente por qualquer um
-          dos canais abaixo:
-        </p>
-
+      <div className="contact-card-wrapper">
         <div className="contact-details-box">
-          <div className="contact-detail-row">
-            <span className="contact-label">E-mail:</span>
-            <a href={`mailto:${email}`} className="contact-value">
-              {email}
-            </a>
+          <div className="contact-info-col">
+            <div className="contact-detail-row">
+              <span className="contact-label">E-mail</span>
+              <a href={`mailto:${email}`} className="contact-value">
+                {email}
+              </a>
+            </div>
+
+            <div className="contact-detail-row">
+              <span className="contact-label">Telefone</span>
+              <a href={`tel:${phoneRaw}`} className="contact-value">
+                {phone}
+              </a>
+            </div>
+
+            <div className="contact-detail-row">
+              <span className="contact-label">WhatsApp</span>
+              <a
+                href={`https://wa.me/${phoneRaw}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-value"
+              >
+                {phone} <span className="contact-hint">(Iniciar conversa)</span>
+              </a>
+            </div>
           </div>
 
-          <div className="contact-detail-row">
-            <span className="contact-label">Telefone:</span>
-            <a href={`tel:${phoneRaw}`} className="contact-value">
-              {phone}
-            </a>
-          </div>
-
-          <div className="contact-detail-row">
-            <span className="contact-label">WhatsApp:</span>
-            <a
-              href={`https://wa.me/${phoneRaw}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-value"
-            >
-              {phone} (Conversar no WhatsApp)
-            </a>
-          </div>
-
-          <div className="contact-actions-row">
+          <div className="contact-actions-col">
             <a href={`mailto:${email}`} className="contact-btn">
-              <Mail size={16} />
-              <span>Enviar E-mail</span>
+              <Mail size={18} />
+              <span>Enviar E-mail Direto</span>
             </a>
 
             <a
@@ -63,7 +59,7 @@ export default function Contact() {
               className="contact-btn-ghost"
             >
               <FontAwesomeIcon icon={faWhatsapp} />
-              <span>Abrir WhatsApp</span>
+              <span>WhatsApp</span>
               <ArrowUpRight size={14} />
             </a>
 

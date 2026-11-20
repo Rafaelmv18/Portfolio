@@ -2,11 +2,11 @@ export default function Skills() {
   const skillCategories = [
     {
       category: "Linguagens",
-      items: ["JavaScript", "Python", "PHP", "C"],
+      items: ["JavaScript", "TypeScript", "Python", "PHP", "C"],
     },
     {
       category: "Frameworks & Bibliotecas",
-      items: ["React", "React Native", "Laravel"],
+      items: ["React", "React Native", "Laravel", "GSAP"],
     },
     {
       category: "Desenvolvimento Web",

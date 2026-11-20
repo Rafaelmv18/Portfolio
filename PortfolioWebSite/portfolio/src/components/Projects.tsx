@@ -14,13 +14,22 @@ export default function Projects() {
       techs: ["PHP", "JavaScript", "SQL", "CSS"],
     },
     {
-      title: "Previsão do Tempo",
-      type: "Web",
+      title: "VELKOR Energy",
+      type: "Web / Landing Page",
       description:
-        "Aplicação web que consome API meteorológica para exibir condições climáticas, temperatura e umidade em tempo real para qualquer cidade.",
+        "Landing page interativa com animação quadro a quadro em Canvas 2D sincronizada com scroll (GSAP + ScrollTrigger e Lenis). Alta performance com 99+ no Lighthouse, carregamento progressivo e acessibilidade total.",
+      image: "/energeticos.png",
+      github: "https://github.com/Rafaelmv18/Portfolio/tree/main/Energeticos",
+      techs: ["TypeScript", "GSAP", "ScrollTrigger", "Canvas 2D", "Vite"],
+    },
+    {
+      title: "Previsão do Tempo",
+      type: "Web / Frontend",
+      description:
+        "Aplicação interativa de previsão climática em tempo real consumindo OpenMeteo API. Conta com transições dinâmicas de cenário, efeito parallax e o personagem 'Bolota', que reage visualmente às condições do tempo.",
       image: "/clima.png",
       github: "https://github.com/Rafaelmv18/Portfolio/tree/main/Clima",
-      techs: ["JavaScript", "REST API", "CSS"],
+      techs: ["React", "TypeScript", "Vite", "OpenMeteo API", "CSS"],
     },
     {
       title: "Conversor de Moedas",
@@ -32,15 +41,6 @@ export default function Projects() {
         "https://github.com/Rafaelmv18/Portfolio/tree/main/ConversorMoeda",
       techs: ["JavaScript", "Exchange API", "CSS"],
     },
-    {
-      title: "To-do List",
-      type: "Web",
-      description:
-        "Aplicação de gerenciamento de tarefas focada em usabilidade e organização do fluxo de trabalho diário.",
-      image: "/to-do_list.png",
-      github: "https://github.com/Rafaelmv18/Portfolio/tree/main/To-do%20List",
-      techs: ["JavaScript", "LocalStorage", "HTML/CSS"],
-    },
   ];
 
   return (
@@ -51,53 +51,53 @@ export default function Projects() {
       <div className="projects-list">
         {/* PROJETO DESTAQUE: INCLUIAQUI */}
         <article className="featured-project">
-          <div className="featured-project-header">
-            <div>
-              <span className="featured-badge">Notícia Oficial no IFBA</span>
-              <h4 className="project-title">
-                IncluiAqui — Aplicativo de Acessibilidade
-              </h4>
+          <div className="featured-project-content">
+            <div className="featured-project-info">
+              <div className="featured-project-header">
+                <div>
+                  <span className="featured-badge">
+                    Notícia Oficial no IFBA
+                  </span>
+                  <h4 className="project-title">
+                    IncluiAqui — Aplicativo de Acessibilidade
+                  </h4>
+                </div>
+                <span className="project-tag-pill">
+                  React Native & TypeScript
+                </span>
+              </div>
+
+              <p className="project-description">
+                Desenvolvido em equipe para o ecossistema móvel, o IncluiAqui
+                tem como objetivo facilitar o acesso a informações de
+                acessibilidade arquitetônica e urbana em locais públicos e
+                privados. O projeto recebeu destaque institucional com matéria
+                no portal de notícias do IFBA.
+              </p>
+
+              <div className="project-links">
+                <a
+                  href="https://portal.ifba.edu.br/feira-de-santana/noticias/2025/estudantes-do-ifba-feira-de-santana-desenvolvem-aplicativo-voltado-a-acessibilidade-incluiaqui"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link-action"
+                >
+                  <span>Matéria no Portal IFBA</span>
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
             </div>
-            <span
-              style={{
-                fontSize: "0.85rem",
-                color: "#64748b",
-                fontFamily: "monospace",
-              }}
-            >
-              React Native & TypeScript
-            </span>
-          </div>
 
-          <p className="project-description">
-            Desenvolvido em equipe para o ecossistema móvel, o IncluiAqui tem
-            como objetivo facilitar o acesso a informações de acessibilidade
-            arquitetônica e urbana em locais públicos e privados. O projeto
-            recebeu destaque institucional com matéria no portal de notícias do
-            IFBA.
-          </p>
-
-          <div className="video-container">
-            <video
-              src="/IncluiAqui.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
-            />
-          </div>
-
-          <div className="project-links">
-            <a
-              href="https://portal.ifba.edu.br/feira-de-santana/noticias/2025/estudantes-do-ifba-feira-de-santana-desenvolvem-aplicativo-voltado-a-acessibilidade-incluiaqui"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link-action"
-            >
-              <span>Matéria no Portal IFBA</span>
-              <ArrowUpRight size={14} />
-            </a>
+            <div className="video-container">
+              <video
+                src="/IncluiAqui.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+              />
+            </div>
           </div>
         </article>
 
