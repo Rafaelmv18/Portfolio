@@ -8,8 +8,11 @@ import Skills from "./components/Skills.tsx";
 import About from "./components/About.tsx";
 import Contact from "./components/Contact.tsx";
 import Footer from "./components/Footer.tsx";
+import { useRevealOnScroll } from "./hooks/useRevealOnScroll.ts";
 
 function App() {
+  useRevealOnScroll();
+
   return (
     <>
       <Header />

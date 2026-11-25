@@ -1,65 +1,88 @@
+import type { CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGithub,
-  faLinkedin,
-  faWhatsapp,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { Mail, ArrowUpRight } from "lucide-react";
+import { contact } from "../data/links";
+import { revealDelay } from "../hooks/useRevealOnScroll";
+
+// Feixes de luz que cruzam o hero: [posição vertical %, duração s, atraso s]
+const streaks: Array<[number, number, number]> = [
+  [14, 7, 0],
+  [32, 9, 2.5],
+  [51, 6.5, 1.2],
+  [68, 8, 4],
+  [86, 10, 0.6],
+];
 
 export default function Hero() {
   return (
     <section className="hero" id="inicio">
-      <h1 className="hero-name">Rafael Mascarenhas Venas</h1>
-      <h2 className="hero-role">
-        Desenvolvedor de Software — Full-Stack & Mobile
-      </h2>
+      {/* Fundo decorativo: grade, brilhos e feixes passando */}
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-grid" />
+        <div className="hero-glow hero-glow-a" />
+        <div className="hero-glow hero-glow-b" />
+        {streaks.map(([top, dur, delay]) => (
+          <span
+            key={top}
+            className="hero-streak"
+            style={
+              {
+                top: `${top}%`,
+                "--streak-dur": `${dur}s`,
+                "--streak-delay": `${delay}s`,
+              } as CSSProperties
+            }
+          />
+        ))}
+      </div>
 
-      <p className="hero-bio">
-        Estudante do 7º semestre de Sistemas de Informação no IFBA. Atualmente,
-        atuo como Estagiário de Desenvolvimento Full-Stack, construindo sistemas
-        de ponta a ponta focados em resolução de problemas reais, automação e
-        suporte a decisões estratégicas. Combino uma postura altamente dedicada
-        e analítica à utilização de tecnologias de IA para otimizar minha
-        produtividade e o tempo de resposta às demandas da empresa.
-      </p>
+      <div className="hero-content">
+        <span className="hero-eyebrow hero-enter" style={revealDelay(0)}>
+          Olá, eu sou
+        </span>
 
-      <div className="hero-links">
-        <a
-          href="https://github.com/Rafaelmv18"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hero-link"
-        >
-          <FontAwesomeIcon icon={faGithub} />
-          <span>GitHub</span>
-          <ArrowUpRight size={14} />
-        </a>
+        <h1 className="hero-name hero-enter" style={revealDelay(100)}>
+          Rafael Mascarenhas Venas
+        </h1>
+        <h2 className="hero-role hero-enter" style={revealDelay(220)}>
+          Desenvolvedor Full-Stack e Mobile
+        </h2>
 
-        <a
-          href="https://www.linkedin.com/in/rafael-mascarenhas-7a696328b"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hero-link"
-        >
-          <FontAwesomeIcon icon={faLinkedin} />
-          <span>LinkedIn</span>
-          <ArrowUpRight size={14} />
-        </a>
+        <p className="hero-bio hero-enter" style={revealDelay(340)}>
+          Desenvolvedor Full-Stack e estudante de Sistemas de Informação no
+          IFBA. Construo sistemas de ponta a ponta focados em resolver problemas
+          reais, automatizar processos e apoiar decisões estratégicas.
+        </p>
 
-        <a href="mailto:rafavenas@gmail.com" className="hero-link">
-          <Mail size={16} />
-          <span>rafavenas@gmail.com</span>
-        </a>
+        <div className="hero-links hero-enter" style={revealDelay(460)}>
+          <a
+            href={contact.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-link"
+          >
+            <FontAwesomeIcon icon={faGithub} />
+            <span>GitHub</span>
+            <ArrowUpRight size={14} />
+          </a>
 
-        <a
-          href="https://wa.me/5575988071564"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hero-link"
-        >
-          <FontAwesomeIcon icon={faWhatsapp} />
-          <span>(75) 98807-1564</span>
-        </a>
+          <a
+            href={contact.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-link"
+          >
+            <FontAwesomeIcon icon={faLinkedin} />
+            <span>LinkedIn</span>
+            <ArrowUpRight size={14} />
+          </a>
+
+          <a href="#contato" className="hero-link hero-link-primary">
+            <Mail size={16} />
+            <span>Entrar em contato</span>
+          </a>
+        </div>
       </div>
     </section>
   );

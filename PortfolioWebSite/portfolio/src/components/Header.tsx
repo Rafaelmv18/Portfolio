@@ -1,109 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { navItems } from "../data/links";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
   return (
     <header className="site-header">
-      <nav className="site-nav">
+      <nav className="site-nav" aria-label="Navegação principal">
         <a href="#inicio" className="nav-logo">
           Rafael Mascarenhas
         </a>
 
         <ul className="nav-links">
-          <li>
-            <a href="#experiencia">Experiência</a>
-          </li>
-          <li>
-            <a href="#projetos">Projetos</a>
-          </li>
-          <li>
-            <a href="#habilidades">Habilidades</a>
-          </li>
-          <li>
-            <a href="#sobre">Sobre</a>
-          </li>
-          <li>
-            <a href="#contato">Contato</a>
-          </li>
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
         </ul>
 
         <button
+          type="button"
           className="nav-mobile-toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Alternar menu"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
       {isOpen && (
-        <div
-          style={{
-            background: "#0e1118",
-            borderBottom: "1px solid #1e2430",
-            padding: "1rem 24px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.85rem",
-          }}
-        >
-          <a
-            href="#experiencia"
-            onClick={() => setIsOpen(false)}
-            style={{
-              color: "#f1f5f9",
-              textDecoration: "none",
-              fontSize: "0.95rem",
-            }}
-          >
-            Experiência
-          </a>
-          <a
-            href="#projetos"
-            onClick={() => setIsOpen(false)}
-            style={{
-              color: "#f1f5f9",
-              textDecoration: "none",
-              fontSize: "0.95rem",
-            }}
-          >
-            Projetos
-          </a>
-          <a
-            href="#habilidades"
-            onClick={() => setIsOpen(false)}
-            style={{
-              color: "#f1f5f9",
-              textDecoration: "none",
-              fontSize: "0.95rem",
-            }}
-          >
-            Habilidades
-          </a>
-          <a
-            href="#sobre"
-            onClick={() => setIsOpen(false)}
-            style={{
-              color: "#f1f5f9",
-              textDecoration: "none",
-              fontSize: "0.95rem",
-            }}
-          >
-            Sobre
-          </a>
-          <a
-            href="#contato"
-            onClick={() => setIsOpen(false)}
-            style={{
-              color: "#f1f5f9",
-              textDecoration: "none",
-              fontSize: "0.95rem",
-            }}
-          >
-            Contato
-          </a>
+        <div id="mobile-menu" className="mobile-menu">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
       )}
     </header>

@@ -5,18 +5,19 @@ import {
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import { Mail, ArrowUpRight } from "lucide-react";
+import { contact, whatsappUrl } from "../data/links";
+import { revealDelay } from "../hooks/useRevealOnScroll";
 
 export default function Contact() {
-  const email = "rafavenas@gmail.com";
-  const phone = "(75) 98807-1564";
-  const phoneRaw = "5575988071564";
+  const { email, phone, phoneRaw } = contact;
 
   return (
     <section className="section" id="contato">
-      <span className="section-label">Disponibilidade</span>
-      <h3 className="section-title">Contato</h3>
+      <h3 className="section-title reveal">
+        Contato
+      </h3>
 
-      <div className="contact-card-wrapper">
+      <div className="contact-card-wrapper reveal" style={revealDelay(150)}>
         <div className="contact-details-box">
           <div className="contact-info-col">
             <div className="contact-detail-row">
@@ -36,12 +37,12 @@ export default function Contact() {
             <div className="contact-detail-row">
               <span className="contact-label">WhatsApp</span>
               <a
-                href={`https://wa.me/${phoneRaw}`}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-value"
               >
-                {phone} <span className="contact-hint">(Iniciar conversa)</span>
+                {phone}
               </a>
             </div>
           </div>
@@ -53,7 +54,7 @@ export default function Contact() {
             </a>
 
             <a
-              href={`https://wa.me/${phoneRaw}`}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="contact-btn-ghost"
@@ -64,7 +65,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/rafael-mascarenhas-7a696328b"
+              href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="contact-btn-ghost"
@@ -75,7 +76,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="https://github.com/Rafaelmv18"
+              href={contact.github}
               target="_blank"
               rel="noopener noreferrer"
               className="contact-btn-ghost"

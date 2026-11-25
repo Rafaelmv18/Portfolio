@@ -1,67 +1,51 @@
+import { revealDelay } from "../hooks/useRevealOnScroll";
+
 export default function Experience() {
   const experiences = [
     {
       company: "Equipadora Gato Preto",
-      period: "Abr, 2026 — Presente",
+      period: "abr 2026 – atual",
       current: true,
-      role: "Estagiário de Desenvolvimento de Software",
+      role: "Estagiário de Desenvolvimento Full-Stack",
       descriptions: [
-        "Atuação no desenvolvimento de soluções end-to-end com Python, React e PostgreSQL.",
-        "Responsável pela criação de sistemas de automação de processos que otimizaram a rotina interna e geraram dados estratégicos para a tomada de decisão da gestão.",
-        "Experiência com configuração e implantação de servidores, além do uso de Claude Code para otimização do fluxo de desenvolvimento e entrega ágil de software.",
+        "Desenvolvo sistemas internos com Python, React e PostgreSQL, do banco de dados à interface.",
+        "Criei automações que tiraram trabalho manual da rotina interna e relatórios que a gestão usa para tomar decisões.",
+        "Configuro e faço o deploy dos servidores de produção, e uso o Claude Code no dia a dia de desenvolvimento.",
       ],
-      tags: [
-        "Python",
-        "React",
-        "PostgreSQL",
-        "Servidores & Deploy",
-        "Automação de Processos",
-        "Claude Code",
-      ],
+      tags: ["Python", "React", "PostgreSQL", "Deploy", "Automação", "Claude Code"],
     },
     {
-      company: "Grupo AME — Sistema Ametech-VR",
-      period: "Abr, 2025 — Fev, 2026",
+      company: "Grupo AME · Sistema Ametech-VR",
+      period: "abr 2025 – fev 2026",
       current: false,
       role: "Engenheiro de Software Backend",
       descriptions: [
-        "Arquitetura de APIs: Desenvolvimento de APIs REST em Laravel com autenticação segura via Sanctum, modelagem de banco de dados relacional e integração com frontend em Next.js para plataforma integrada de saúde.",
-        "Coordenação Técnica: Gestão das demandas do backend, definição de padrões técnicos, organização dos fluxos de desenvolvimento e melhorias contínuas no sistema.",
-        "Produto e Escalabilidade: Criação de dashboards, gestão de sessões terapêuticas e controle de acesso por perfis, garantindo segurança e alta escalabilidade.",
+        "Desenvolvi APIs REST em Laravel, com autenticação via Sanctum, para uma plataforma de saúde, modelando o banco de dados e integrando com o frontend em Next.js.",
+        "Coordenei as demandas do backend: definia os padrões de código, organizava o fluxo de desenvolvimento e priorizava as melhorias do sistema.",
+        "Implementei os dashboards, o módulo de sessões terapêuticas e o controle de acesso por perfil de usuário.",
       ],
-      tags: [
-        "Laravel",
-        "Next.js",
-        "PostgreSQL",
-        "Autenticação",
-        "Dashboards",
-        "Escalabilidade",
-      ],
+      tags: ["Laravel", "Next.js", "PostgreSQL", "REST", "Sanctum"],
     },
   ];
 
   return (
     <section className="section" id="experiencia">
-      <span className="section-label">Trajetória Profissional</span>
-      <h3 className="section-title">Experiência</h3>
+      <h3 className="section-title reveal">
+        Experiência
+      </h3>
 
-      <div className="timeline-container">
+      {/* A linha vertical é o ::before de .timeline e "desenha" ao aparecer */}
+      <div className="timeline reveal-line">
         {experiences.map((exp, idx) => (
           <div
-            key={idx}
-            className={`timeline-item ${exp.current ? "timeline-item-current" : ""}`}
+            key={exp.company}
+            className="timeline-item reveal"
+            style={revealDelay(150 + idx * 150)}
           >
-            {/* Linha vertical e marcador visual */}
-            <div className="timeline-spine">
-              <div
-                className={`timeline-dot ${exp.current ? "timeline-dot-current" : ""}`}
-              >
-                {exp.current && <span className="timeline-dot-ping"></span>}
-              </div>
-              {idx < experiences.length - 1 && (
-                <div className="timeline-line"></div>
-              )}
-            </div>
+            <span
+              className={`timeline-dot ${exp.current ? "timeline-dot-current" : ""}`}
+              aria-hidden="true"
+            />
 
             {/* Card com os detalhes da experiência */}
             <article
@@ -77,16 +61,16 @@ export default function Experience() {
               <div className="experience-role">{exp.role}</div>
 
               <div className="experience-description-list">
-                {exp.descriptions.map((desc, dIdx) => (
-                  <p key={dIdx} className="experience-description">
+                {exp.descriptions.map((desc) => (
+                  <p key={desc} className="experience-description">
                     {desc}
                   </p>
                 ))}
               </div>
 
               <div className="experience-tags">
-                {exp.tags.map((t, tIdx) => (
-                  <span key={tIdx} className="experience-tag">
+                {exp.tags.map((t) => (
+                  <span key={t} className="experience-tag">
                     {t}
                   </span>
                 ))}
