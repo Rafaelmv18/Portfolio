@@ -1,3 +1,5 @@
+import { revealDelay } from "../hooks/useRevealOnScroll";
+
 export default function Skills() {
   const skillCategories = [
     {
@@ -24,17 +26,22 @@ export default function Skills() {
 
   return (
     <section className="section" id="habilidades">
-      <span className="section-label">Competências</span>
-      <h3 className="section-title">Habilidades Técnicas</h3>
+      <h3 className="section-title reveal">
+        Habilidades Técnicas
+      </h3>
 
       <div className="skills-groups">
         {skillCategories.map((group, idx) => (
-          <div key={idx} className="skills-group">
+          <div
+            key={group.category}
+            className="skills-group reveal"
+            style={revealDelay(100 + idx * 90)}
+          >
             <div className="skills-group-header">
               <span className="skills-group-title">{group.category}</span>
               <div className="skills-pills">
-                {group.items.map((item, iIdx) => (
-                  <span key={iIdx} className="skill-pill-minimal">
+                {group.items.map((item) => (
+                  <span key={item} className="skill-pill-minimal">
                     {item}
                   </span>
                 ))}
