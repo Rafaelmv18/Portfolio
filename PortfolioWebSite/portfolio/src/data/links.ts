@@ -9,6 +9,12 @@ export const contact = {
 
 export const whatsappUrl = `https://wa.me/${contact.phoneRaw}`;
 
+// PDF servido a partir de /public. Troque o arquivo lá para atualizar o download.
+export const resume = {
+  url: "/curriculo.pdf",
+  fileName: "Curriculo-Rafael-Mascarenhas-Venas.pdf",
+} as const;
+
 export const navItems = [
   { href: "#experiencia", label: "Experiência" },
   { href: "#projetos", label: "Projetos" },
