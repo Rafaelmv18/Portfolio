@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { navItems } from "../data/links";
+import { Menu, X, Download } from "lucide-react";
+import { navItems, resume } from "../data/links";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +27,16 @@ export default function Header() {
               <a href={item.href}>{item.label}</a>
             </li>
           ))}
+          <li>
+            <a
+              href={resume.url}
+              download={resume.fileName}
+              className="nav-cta"
+            >
+              <Download size={15} />
+              <span>Currículo</span>
+            </a>
+          </li>
         </ul>
 
         <button
@@ -52,6 +62,15 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+          <a
+            href={resume.url}
+            download={resume.fileName}
+            className="mobile-menu-cta"
+            onClick={() => setIsOpen(false)}
+          >
+            <Download size={15} />
+            <span>Baixar currículo</span>
+          </a>
         </div>
       )}
     </header>

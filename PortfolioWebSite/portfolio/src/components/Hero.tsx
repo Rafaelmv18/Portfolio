@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { Mail, ArrowUpRight } from "lucide-react";
-import { contact } from "../data/links";
+import { Mail, ArrowUpRight, Download } from "lucide-react";
+import { contact, resume } from "../data/links";
 import { revealDelay } from "../hooks/useRevealOnScroll";
 
 // Feixes de luz que cruzam o hero: [posição vertical %, duração s, atraso s]
@@ -76,6 +76,15 @@ export default function Hero() {
             <FontAwesomeIcon icon={faLinkedin} />
             <span>LinkedIn</span>
             <ArrowUpRight size={14} />
+          </a>
+
+          <a
+            href={resume.url}
+            download={resume.fileName}
+            className="hero-link"
+          >
+            <Download size={16} />
+            <span>Baixar currículo</span>
           </a>
 
           <a href="#contato" className="hero-link hero-link-primary">
